@@ -4,20 +4,23 @@ import numpy as np
 
 PRECISION = 10
 
-# First, let's create a dataset composed of random data points:
-NUM_DATA_POINTS = 50
-DATA = np.random.uniform(0, 1, NUM_DATA_POINTS)
+# Seed value:
+SEED = 42
+np.random.seed(SEED)
 
-print("DATA: ", str(DATA))
-print( '-' * 120 )
+def print_separator(num_dashes=120):
+    print('-' * num_dashes)
+
+# First, let's create a dataset composed of random data points:
+NUM_DATA_POINTS = 100
+DATA = np.random.uniform(0, 1, NUM_DATA_POINTS)
 
 # Mpmath uses a global working precision. We calculate the global precision value we need and set it accordingly.
 MP_PRECISION = NUM_DATA_POINTS * PRECISION
 mp.prec = MP_PRECISION
 
-# Seed value:
-SEED = 42
-np.random.seed( SEED )
+print("DATA: ", str(DATA))
+print_separator()
 
 # Functions which we're going to use to encode and decode our data:
 
@@ -79,17 +82,17 @@ def binary_conjugate( data ):
 binary_conjugate_str = binary_conjugate( DATA )
 
 print( 'BINARY CONJUGATE: ' , binary_conjugate_str )
-print( '-' * 120 )
+print_separator()
 
 decimal_conjugate = binary_to_decimal( binary_conjugate_str )
 
 print( 'DECIMAL CONJUGATE: ' , decimal_conjugate )
-print( '-' * 120 )
+print_separator()
 
 decimal = phi( decimal_conjugate )
 
 print( 'DECIMAL: ' , str(decimal) )
-print( '-' * 120 )
+print_separator()
 
 def logistic_decoder (
     real_num
@@ -111,4 +114,3 @@ decoded_values = [
 ]
 
 print( "DECODED VALUES: ", str( np.array( decoded_values ) ) )
-
